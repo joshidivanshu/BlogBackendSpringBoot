@@ -1,7 +1,9 @@
 package com.blog.Blog.Entities;
 
+import com.blog.Blog.Repo.PostRepo;
 import jakarta.persistence.*;
 import lombok.Builder;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,6 +13,9 @@ import java.util.List;
 public class Post {
     @Id
     private int id;
+
+    @Autowired
+    private PostRepo repo;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

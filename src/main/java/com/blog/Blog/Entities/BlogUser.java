@@ -1,18 +1,24 @@
 package com.blog.Blog.Entities;
 
+import com.blog.Blog.Repo.UserRepo;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.Builder;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 @Builder
 @Entity
 public class BlogUser {
+
     @Id
     private int id;
+
+    @Autowired
+    private UserRepo repo;
 
     private String name;
 

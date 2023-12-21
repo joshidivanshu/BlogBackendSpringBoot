@@ -1,7 +1,9 @@
 package com.blog.Blog.Entities;
 
+import com.blog.Blog.Repo.CommentRepo;
 import jakarta.persistence.*;
 import lombok.Builder;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 
@@ -10,6 +12,9 @@ import java.time.LocalDateTime;
 public class Comment {
     @Id
     private int id;
+
+    @Autowired
+    private CommentRepo repo;
 
     @ManyToOne
     @JoinColumn(name="post_id")
