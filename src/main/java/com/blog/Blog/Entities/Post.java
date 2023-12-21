@@ -3,12 +3,14 @@ package com.blog.Blog.Entities;
 import com.blog.Blog.Repo.PostRepo;
 import jakarta.persistence.*;
 import lombok.Builder;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Builder
+@Data
 @Entity
 public class Post {
     @Id

@@ -6,11 +6,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.Builder;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 @Builder
+@Data
 @Entity
 public class BlogUser {
 
