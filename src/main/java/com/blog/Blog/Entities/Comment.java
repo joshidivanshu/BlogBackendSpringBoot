@@ -13,9 +13,6 @@ public class Comment {
     @Id
     private int id;
 
-    @Autowired
-    private CommentRepo repo;
-
     @ManyToOne
     @JoinColumn(name="post_id")
     private Post post;

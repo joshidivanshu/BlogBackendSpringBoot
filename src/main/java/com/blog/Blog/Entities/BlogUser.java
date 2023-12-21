@@ -17,9 +17,6 @@ public class BlogUser {
     @Id
     private int id;
 
-    @Autowired
-    private UserRepo repo;
-
     private String name;
 
     private String email;

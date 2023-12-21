@@ -14,9 +14,6 @@ public class Post {
     @Id
     private int id;
 
-    @Autowired
-    private PostRepo repo;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private BlogUser user;
