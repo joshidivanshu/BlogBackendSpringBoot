@@ -15,6 +15,14 @@ public class UserController {
     @Autowired
     UserRepo repo;
 
+
+    /**
+     * Request to create a test user.
+     * curl -X POST -H "Content-Type: application/json" -d '{"id":"1", "name":"divanshu","email":"joshidivanshu16@gmail.com", "imageUrl":"test"}' http://localhost:8080/user
+     * @param user
+     * @return
+     */
+
     @PostMapping("/user")
     public ResponseEntity<String> createUser(@RequestBody BlogUser user) {
         try {

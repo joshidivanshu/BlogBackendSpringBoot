@@ -24,6 +24,12 @@ public class PostController {
     @Autowired
     UserRepo userRepo;
 
+    /**
+     * Request to create a dummy post.
+     * curl -X POST -H "Content-Type: application/json" -d '{"userId": 1, "content": "Lorem ipsum", "title": "Sample Title", "imageUrl": "sample.jpg", "comments": []}' http://localhost:8080/createPost
+     * @param postRequest
+     * @return
+     */
     @PostMapping("/createPost")
     public ResponseEntity<String> createPost(@RequestBody PostRequest postRequest) {
         try {
@@ -52,6 +58,11 @@ public class PostController {
 
     }
 
+    /**
+     * Request to get all the posts.
+     * curl -X GET http://localhost:8080/posts
+     * @return
+     */
     @GetMapping("/posts")
     public List<Post> getAllPosts() {
         try {
@@ -62,12 +73,24 @@ public class PostController {
         }
     }
 
+    /**
+     * Example request to get a specific post.
+     * curl -X GET http://localhost:8080/getPost/1
+     * @param postId
+     * @return
+     */
     @GetMapping("/getPost/{postId}")
     public Post getPost(@PathVariable int postId) {
         Post post = postRepo.findById(postId).orElse(null);
         return post;
     }
 
+    /**
+     * Example delete request
+     * curl -X DELETE http://localhost:8080/posts/1
+     * @param postId
+     * @return
+     */
     @DeleteMapping("/posts/{postId}")
     public ResponseEntity<String> deletePost(@PathVariable int postId) {
         Post post = postRepo.findById(postId).orElse(null);
@@ -78,20 +101,26 @@ public class PostController {
         return new ResponseEntity<>("No such user found", HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * Example request to update a post.
+     *  curl -X PATCH -H "Content-Type: application/json" -d '{"postId":"1", "userId" : 1, "content": "updated content", "title" : "new title", "imageUrl": "new url", "comments":[]}' http://localhost:8080/updatePost
+     * @param
+     * @return
+     */
     @PatchMapping("/updatePost")
-    public ResponseEntity<String> updatePost(@RequestBody Post updatePost) {
-        Post existingPost = postRepo.findById(updatePost.getId()).orElse(null);
+    public ResponseEntity<String> updatePost(@RequestBody PostRequest postRequest) {
+        Post existingPost = postRepo.findById(postRequest.getPostId()).orElse(null);
 
         if (existingPost != null) {
-            if(updatePost.getContent() != null) {
-                existingPost.setContent(updatePost.getContent());
+            if(postRequest.getContent() != null) {
+                existingPost.setContent(postRequest.getContent());
             }
 
-            if(updatePost.getTitle() != null) {
-                existingPost.setTitle(updatePost.getTitle());
+            if(postRequest.getTitle() != null) {
+                existingPost.setTitle(postRequest.getTitle());
             }
 
-            existingPost.setCreatedAt(updatePost.getCreatedAt());
+            existingPost.setCreatedAt(existingPost.getCreatedAt());
             postRepo.save(existingPost);
 
             return ResponseEntity.ok("Post updated successfully");
