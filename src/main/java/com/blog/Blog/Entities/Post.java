@@ -16,7 +16,8 @@ import java.util.List;
 @Table(name="post")
 public class Post {
     @Id
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
