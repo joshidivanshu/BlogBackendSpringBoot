@@ -27,6 +27,12 @@ public class CommentController {
     @Autowired
     PostRepo postRepo;
 
+    /**
+     * Example request to create a comment.
+     * curl -X POST -H "Content-Type: application/json" -d '{"userId":1, "postId": 1, "content" : "comment text you need to read"}' http://localhost:8080/createComment
+     * @param commentRequest
+     * @return
+     */
     @PostMapping("/createComment")
     public ResponseEntity<String> createComment(@RequestBody CommentRequest commentRequest) {
         try {
