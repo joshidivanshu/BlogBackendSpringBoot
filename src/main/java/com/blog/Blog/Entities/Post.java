@@ -12,6 +12,7 @@ import java.util.List;
 @Builder
 @Data
 @Entity
+@Table(name="post")
 public class Post {
     @Id
     private int id;
@@ -25,12 +26,12 @@ public class Post {
     private LocalDateTime createdAt;
 
     @Column(columnDefinition = "TEXT") // Use TEXT type for longer content
-    private String Content;
+    private String content;
 
-    private String Title;
+    private String title;
 
     private String imageUrl;
 
-    @OneToMany(mappedBy = "post_id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private List<Comment> comments;
 }

@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @Builder
 @Data
 @Entity
+@Table(name="comment")
 public class Comment {
     @Id
     private int id;
@@ -24,7 +25,7 @@ public class Comment {
     private BlogUser user;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
     @Column(columnDefinition = "TEXT")
     private String content;

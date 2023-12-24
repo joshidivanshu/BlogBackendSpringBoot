@@ -1,10 +1,7 @@
 package com.blog.Blog.Entities;
 
 import com.blog.Blog.Repo.UserRepo;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +11,12 @@ import java.util.List;
 @Builder
 @Data
 @Entity
+@Table(name="app_user")
 public class BlogUser {
 
     @Id
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     private String name;
 
@@ -27,10 +26,12 @@ public class BlogUser {
 
     private String imageUrl;
 
-    @OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL)
+    //mapped by is the name of the field in the other table.
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Post> posts;
 
-    @OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL)
+    //mapped by is the name of the field in the other table.
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Comment> comments;
 
 }
