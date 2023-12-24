@@ -2,8 +2,7 @@ package com.blog.Blog.Entities;
 
 import com.blog.Blog.Repo.UserRepo;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -12,14 +11,18 @@ import java.util.List;
 @Data
 @Entity
 @Table(name="app_user")
+@NoArgsConstructor
+@AllArgsConstructor
 public class BlogUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NonNull
     private String name;
 
+    @NonNull
     private String email;
 
     private String phoneNumber;

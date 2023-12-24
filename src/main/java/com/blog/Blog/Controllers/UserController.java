@@ -16,9 +16,15 @@ public class UserController {
     UserRepo repo;
 
     @PostMapping("/user")
-    public ResponseEntity<String> createUser(BlogUser user) {
-        repo.save(user);
-        return new ResponseEntity<>("User Created Successfully!!", HttpStatus.CREATED);
+    public ResponseEntity<String> createUser(@RequestBody BlogUser user) {
+        try {
+            repo.save(user);
+            return new ResponseEntity<>("User Created Successfully!!", HttpStatus.CREATED);
+        }
+        catch (Exception ex) {
+            return  new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     @GetMapping("/allUsers")

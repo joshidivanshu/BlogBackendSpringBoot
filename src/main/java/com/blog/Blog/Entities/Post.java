@@ -4,6 +4,7 @@ import com.blog.Blog.Repo.PostRepo;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
@@ -26,8 +27,10 @@ public class Post {
     private LocalDateTime createdAt;
 
     @Column(columnDefinition = "TEXT") // Use TEXT type for longer content
+    @NonNull
     private String content;
 
+    @NonNull
     private String title;
 
     private String imageUrl;
