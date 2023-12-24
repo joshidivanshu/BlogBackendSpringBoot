@@ -29,8 +29,15 @@ public class UserController {
 
     @GetMapping("/allUsers")
     public List<BlogUser> getAllUsers() {
-        List<BlogUser> users = repo.findAll();
-        return users;
+        try {
+            List<BlogUser> users = repo.findAll();
+            return users;
+        }
+        catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return  null;
+        }
+
     }
 
     @GetMapping("/getUser/{userId}")
