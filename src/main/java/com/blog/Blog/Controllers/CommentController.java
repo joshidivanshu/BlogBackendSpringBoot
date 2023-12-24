@@ -10,11 +10,10 @@ import com.blog.Blog.RequestClasses.CommentRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 public class CommentController {
@@ -61,6 +60,53 @@ public class CommentController {
         catch (Exception ex) {
             return new ResponseEntity<>("Unknown error", HttpStatus.BAD_REQUEST);
         }
+
+    }
+
+    @GetMapping("/comments")
+    public List<Comment> getAllComments() {
+        try {
+            List<Comment> comments = commentRepo.findAll();
+            return comments;
+        }
+        catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
+    }
+
+    @GetMapping("/comments/{commentId}")
+    public Comment getComment(@PathVariable int commentId) {
+        Comment comment = commentRepo.findById(commentId).orElse(null);
+        return comment;
+    }
+
+    @DeleteMapping("/comments/{commentId}")
+    public ResponseEntity<String> deleteComment(@PathVariable int commentId) {
+        Comment comment = commentRepo.findById(commentId).orElse(null);
+
+        if(comment != null) {
+             commentRepo.delete(comment);
+             return new ResponseEntity<>("Comment deleted successfully!", HttpStatus.OK);
+        }
+        return  new ResponseEntity<>("No such comment exists", HttpStatus.BAD_REQUEST);
+    }
+
+    @PatchMapping("/updateComment")
+    public ResponseEntity<String> updateComment(@RequestBody CommentRequest commentRequest) {
+        Comment existingComment = commentRepo.findById(commentRequest.getCommentId()).orElse(null);
+
+        if (existingComment != null) {
+            if(commentRequest.getContent() != null) {
+                existingComment.setContent(commentRequest.getContent());
+            }
+
+            commentRepo.save(existingComment);
+
+            return new ResponseEntity<>("Comment updated successfully", HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>("No such comment exists", HttpStatus.BAD_REQUEST);
     }
 
 }
