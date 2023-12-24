@@ -63,6 +63,11 @@ public class CommentController {
 
     }
 
+    /**
+     * Example request
+     * curl -X GET http://localhost:8080/comments
+     * @return
+     */
     @GetMapping("/comments")
     public List<Comment> getAllComments() {
         try {
@@ -75,12 +80,24 @@ public class CommentController {
         }
     }
 
+    /**
+     * Example request
+     * curl -X GET http://localhost:8080/comments/1
+     * @param commentId
+     * @return
+     */
     @GetMapping("/comments/{commentId}")
     public Comment getComment(@PathVariable int commentId) {
         Comment comment = commentRepo.findById(commentId).orElse(null);
         return comment;
     }
 
+    /**
+     * Example Request
+     * curl -X DELETE  http://localhost:8080/comments/1
+     * @param commentId
+     * @return
+     */
     @DeleteMapping("/comments/{commentId}")
     public ResponseEntity<String> deleteComment(@PathVariable int commentId) {
         Comment comment = commentRepo.findById(commentId).orElse(null);
@@ -92,6 +109,12 @@ public class CommentController {
         return  new ResponseEntity<>("No such comment exists", HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * Example Request
+     * curl -X PATCH -H "Content-Type: application/json" -d '{"commentId": 2, "userId": 1, "postId": 1, "content": "update the comment body"}' http://localhost:8080/updateComment
+     * @param commentRequest
+     * @return
+     */
     @PatchMapping("/updateComment")
     public ResponseEntity<String> updateComment(@RequestBody CommentRequest commentRequest) {
         Comment existingComment = commentRepo.findById(commentRequest.getCommentId()).orElse(null);
